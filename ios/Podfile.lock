@@ -1,0 +1,28 @@
+PODS:
+  - aeyrium_sensor (1.0.0):
+    - Flutter
+  - Flutter (1.0.0)
+  - get_ip (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - aeyrium_sensor (from `.symlinks/plugins/aeyrium_sensor/ios`)
+  - Flutter (from `Flutter`)
+  - get_ip (from `.symlinks/plugins/get_ip/ios`)
+
+EXTERNAL SOURCES:
+  aeyrium_sensor:
+    :path: ".symlinks/plugins/aeyrium_sensor/ios"
+  Flutter:
+    :path: Flutter
+  get_ip:
+    :path: ".symlinks/plugins/get_ip/ios"
+
+SPEC CHECKSUMS:
+  aeyrium_sensor: cdaa0bdd7206824ea4fb910c627cad05275362e5
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  get_ip: c063133e0a399ae4089048c90d6a232cb2344846
+
+PODFILE CHECKSUM: c34e2287a9ccaa606aeceab922830efb9a6ff69a
+
+COCOAPODS: 1.9.2
