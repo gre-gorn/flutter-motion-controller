@@ -25,7 +25,7 @@ class MotionControllerMainPage extends StatefulWidget {
 }
 
 class _MotionControllerMainPageState extends State<MotionControllerMainPage> {
-  String ipAddress = "0.0.0.0";
+  String textMessage = "0.0.0.0";
   HttpServer server;
   StreamController streamController;
 
@@ -34,19 +34,26 @@ class _MotionControllerMainPageState extends State<MotionControllerMainPage> {
   @override
   void initState() {
     super.initState();
+
     streamController = StreamController<String>();
+
     AeyriumSensor.sensorEvents.listen((SensorEvent event) {
       streamController.add(event.toString());
       print("Pitch ${event.pitch} and Roll ${event.roll}");
     });
+
     startServer();
   }
 
   void startServer() async {
-    ipAddress = await GetIp.ipAddress;
-    server = await HttpServer.bind(ipAddress, 4040);
-    print('Listening on:${server.address.host}:${server.port}');
+    var _ipAddress = await GetIp.ipAddress;
+    server = await HttpServer.bind(_ipAddress, 4040);
+    print('Listening on: ${server.address.host}:${server.port}');
     server.listen(handleRequest);
+
+    setState(() {
+      textMessage = 'Listening on: ${server.address.host}:${server.port}';
+    });
   }
 
   void handleRequest(HttpRequest req) {
@@ -77,7 +84,7 @@ class _MotionControllerMainPageState extends State<MotionControllerMainPage> {
         padding: EdgeInsets.all(20.0),
         child: Column(
           children: <Widget>[
-            Text("${ipAddress}")
+            Text('$textMessage')
           ],
         ),
       )
