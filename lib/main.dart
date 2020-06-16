@@ -29,7 +29,7 @@ class _MotionControllerMainPageState extends State<MotionControllerMainPage> {
   HttpServer server;
   StreamController streamController;
 
-  final List<String> list = [];
+  final List<SensorEvent> list = [];
 
   @override
   void initState() {
@@ -39,6 +39,12 @@ class _MotionControllerMainPageState extends State<MotionControllerMainPage> {
 
     AeyriumSensor.sensorEvents.listen((SensorEvent event) {
       streamController.add(event.toString());
+      setState(() {
+        list.insert(0, event);
+        if (list.length > 10) {
+          list.removeLast();
+        }
+      });
       print("Pitch ${event.pitch} and Roll ${event.roll}");
     });
 
@@ -80,14 +86,15 @@ class _MotionControllerMainPageState extends State<MotionControllerMainPage> {
       appBar: AppBar(
         title: Text('Motion Controller'),
       ),
-      body: Container(
-        padding: EdgeInsets.all(20.0),
-        child: Column(
-          children: <Widget>[
-            Text('$textMessage')
-          ],
-        ),
-      )
+      body: new ListView.builder (
+        itemCount: list.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+              leading: const Icon(Icons.event),
+              title: Text(list[index].toString())
+          );
+        },
+    ),
     );
   }
 }
